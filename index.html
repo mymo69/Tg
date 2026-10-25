@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffe4ec">
+<title>🐣 ทามาก็อต น้องเกอ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* พื้นหลัง */
+  --bg-a:#fff1f5; --bg-b:#ffe4ec; --bg-c:#e0d9ff;
+  --white:#fff;
+  /* ตัวอักษร */
+  --ink:#4a2040; --ink-soft:#6b3a5a; --ink-mute:#7d4a6c;
+  /* เส้น / กระจก / เงา */
+  --line:#fbcfe0; --glass:rgba(255,255,255,.9); --scrim:rgba(42,16,48,.5);
+  --shadow:rgba(120,40,100,.16); --night-scrim:rgba(26,16,51,.38); --pill-dark:rgba(0,0,0,.35);
+  /* สีหลัก */
+  --accent:#db2777; --accent-2:#9333ea;
+  --coin-bg:#fff7cc; --coin-line:#fcd34d; --coin-ink:#92400e;
+  --ok-a:#059669; --ok-b:#0f766e;
+  --bad:#dc2626; --bad-ink:#b91c1c; --bad-line:#fecaca;
+  --dis-bg:#f3f4f6; --dis-line:#e5e7eb; --dis-ink:#6b7280;
+  /* หลอดสถานะ */
+  --stat-hunger:#fb923c; --stat-happy:#f472b6; --stat-energy:#fbbf24; --stat-clean:#38bdf8; --track:#f3e6ec;
+  /* ฉากสัตว์เลี้ยง */
+  --stage-a:#fff8fb; --stage-b:#ffe7f0; --stage-c:#d9ccff; --poop:#5a3a2a;
+  /* น้องเกอ */
+  --hair:#4a2c2a; --skin:#ffdbac; --eye:#2b1a0e; --blush:#ff8fab; --mouth:#d94f4f; --mouth-line:#6b3a2a; --bow:#ff5a8f;
+  /* สีการ์ดตัวละคร */
+  --cat-a:#ffedd5; --cat-b:#fb923c;
+  --shiba-a:#fef3c7; --shiba-b:#f59e0b;
+  --bunny-a:#fce7f3; --bunny-b:#f472b6;
+  --panda-a:#f3f4f6; --panda-b:#9ca3af;
+  --ham-a:#ffedd5; --ham-b:#fdba74;
+  --fox-a:#ffedd5; --fox-b:#f97316;
+  --frog-a:#dcfce7; --frog-b:#4ade80;
+  --octo-a:#ede9fe; --octo-b:#a78bfa;
+  --uni-a:#fae8ff; --uni-b:#e879f9;
+  --dragon-a:#fee2e2; --dragon-b:#f87171;
+  --ge-a:#fce7f3; --ge-b:#f9a8d4;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-size:16px;font-size:clamp(12px,3dvh,16px);-webkit-text-size-adjust:100%}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--bg-b)}
+body{
+  font-family:'Kanit','Sarabun','Noto Sans Thai','Thonburi','Leelawadee UI',system-ui,sans-serif;
+  color:var(--ink);line-height:1.3;
+  word-break:normal;overflow-wrap:break-word;line-break:auto;
+  -webkit-tap-highlight-color:transparent;overscroll-behavior:none;
+}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+button:focus-visible{outline:3px solid var(--accent-2);outline-offset:2px}
+button:disabled{cursor:not-allowed}
+
+/* ===== โครงหน้าจอ: พอดี 1 จอ ===== */
+.app{
+  position:relative;height:100vh;height:100dvh;width:100%;max-width:440px;margin:0 auto;
+  display:flex;flex-direction:column;overflow:hidden;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background:linear-gradient(180deg,var(--bg-a),var(--bg-b) 55%,var(--bg-c));
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+}
+.top{
+  flex:none;display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  min-height:3.5rem;padding:.375rem .75rem;
+  background:var(--glass);border-bottom:1px solid var(--line);box-shadow:0 2px 10px var(--shadow);
+}
+.brand{min-width:0}
+.brand b{display:block;font-size:1.1875rem;font-weight:700;line-height:1.15;white-space:nowrap}
+.brand small{display:block;font-size:.8125rem;font-weight:600;color:var(--ink-mute);line-height:1.2;white-space:nowrap}
+.chips{display:flex;align-items:center;gap:.375rem;flex:none}
+.chip{
+  display:inline-flex;align-items:center;gap:.25rem;height:2rem;padding:0 .625rem;
+  border-radius:999px;border:1px solid var(--line);background:var(--white);
+  font-size:.9375rem;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+.chip.coin{background:var(--coin-bg);border-color:var(--coin-line);color:var(--coin-ink)}
+
+.screen{flex:1;min-height:0;display:flex;flex-direction:column;gap:.5rem;padding:.5rem .625rem .625rem}
+
+/* ===== หน้าเลือกเพื่อน ===== */
+.pick-head{
+  flex:none;display:flex;align-items:center;justify-content:center;gap:.5rem;min-height:2.5rem;
+  background:var(--glass);border:1px solid var(--line);border-radius:.875rem;
+  font-size:1.0625rem;font-weight:700;padding:.25rem .5rem;text-align:center;
+}
+.pick-head .count{font-size:.875rem;background:var(--bg-b);color:var(--accent);border-radius:999px;padding:.1rem .6rem}
+.grid{
+  flex:1;min-height:0;display:grid;gap:.5rem;align-content:center;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-rows:repeat(4,minmax(4.5rem,7.5rem));
+}
+.card{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  min-width:0;padding:.25rem;border:2px solid var(--white);border-radius:1.125rem;
+  box-shadow:0 4px 10px var(--shadow);transition:transform .12s;
+}
+.card:active{transform:scale(.95)}
+.card.wide{grid-column:span 2}
+.card .em{font-size:2.25rem;line-height:1}
+.card .nm{font-size:1rem;font-weight:700;line-height:1.15;white-space:nowrap}
+.card .sb{font-size:.8125rem;font-weight:600;color:var(--ink-soft);line-height:1.15;white-space:nowrap}
+.card .new{
+  position:absolute;top:.3rem;right:.4rem;padding:.05rem .45rem;border-radius:999px;
+  background:var(--accent);color:var(--white);font-size:.8125rem;font-weight:700;line-height:1.3;
+}
+.card .ge{--pet-size:2.75rem}
+.tip span{white-space:nowrap}
+.tip{
+  flex:none;min-height:2.25rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0 .875rem;text-align:center;
+  background:var(--glass);border:1px solid var(--line);border-radius:999px;padding:.25rem .75rem;
+  font-size:.875rem;font-weight:600;color:var(--accent);text-wrap:balance;
+}
+
+/* ===== หน้าเลี้ยง ===== */
+.bubble{
+  flex:none;align-self:center;max-width:96%;min-height:2.5rem;display:flex;align-items:center;justify-content:center;
+  padding:.35rem 1rem;background:var(--white);border:1px solid var(--line);border-radius:1.25rem;
+  box-shadow:0 2px 8px var(--shadow);font-size:1rem;font-weight:600;text-align:center;text-wrap:balance;
+}
+.txt{text-align:center;text-wrap:balance}
+.ph{display:inline-block;max-width:100%}
+.stage-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;container-type:size}
+.stage{
+  --pet-size:5.5rem;--emoji-size:4.5rem;
+  position:relative;flex:none;height:min(40vh,88vw);aspect-ratio:1/1;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;
+  border:5px solid var(--white);border-radius:1.5rem;
+  background:
+    radial-gradient(circle at 12% 14%,var(--white) 0 3px,transparent 4px),
+    radial-gradient(circle at 86% 22%,var(--blush) 0 2px,transparent 3px),
+    radial-gradient(circle at 18% 82%,var(--stage-c) 0 2px,transparent 3px),
+    radial-gradient(circle at 84% 76%,var(--white) 0 3px,transparent 4px),
+    linear-gradient(135deg,var(--stage-a),var(--stage-b) 55%,var(--stage-c));
+  box-shadow:0 10px 22px var(--shadow),inset 0 2px 8px var(--white);
+}
+@supports (width:1cqmin){
+  .stage{height:min(100cqh,100cqw);--pet-size:38cqmin;--emoji-size:34cqmin;--badge:clamp(1.75rem,12cqmin,2.5rem)}
+}
+@container (min-height:240px){
+  .stage{--pet-size:44cqmin;--emoji-size:40cqmin}
+}
+.pet-box{position:relative;z-index:5;display:flex;align-items:center;justify-content:center}
+.pet-box.bob{animation:bob 2.2s ease-in-out infinite}
+.pet-emoji{font-size:var(--emoji-size);line-height:1;filter:drop-shadow(0 4px 8px var(--shadow))}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.tag{
+  position:relative;z-index:5;max-width:calc(100% - 1rem);padding:.1rem .6rem;border-radius:999px;background:var(--glass);
+  border:1px solid var(--line);font-size:.9375rem;font-weight:700;text-align:center;text-wrap:balance;
+}
+.badge{
+  position:absolute;z-index:20;top:.4rem;width:var(--badge,2.25rem);height:var(--badge,2.25rem);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:calc(var(--badge,2.25rem) * .55);line-height:1;
+  border:2px solid var(--white);box-shadow:0 2px 6px var(--shadow);
+}
+.badge.poop{left:.4rem;background:var(--poop)}
+.badge.sick{right:.4rem;background:var(--white);border-color:var(--bad-line)}
+.sleepov{
+  position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;
+  background:var(--night-scrim);
+}
+.sleepov .big{font-size:2rem;line-height:1}
+.sleepov .pill{background:var(--pill-dark);color:var(--white);border-radius:999px;padding:.25rem .875rem;font-size:.9375rem;font-weight:700;white-space:nowrap}
+.sleepov .zzz{font-size:1.5rem;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+.stats{
+  flex:none;display:grid;grid-template-columns:1fr 1fr;gap:.5rem .875rem;padding:.5rem .75rem;
+  background:var(--glass);border:1px solid var(--line);border-radius:1rem;box-shadow:0 3px 10px var(--shadow);
+}
+.stat-head{display:flex;align-items:center;justify-content:space-between;gap:.25rem;font-size:.9375rem;font-weight:700;line-height:1.2}
+.stat-head .nm{white-space:nowrap}
+.stat-head .pct{font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.stat.low .pct{color:var(--bad-ink)}
+.bar{height:.625rem;margin-top:.25rem;border-radius:999px;background:var(--track);overflow:hidden}
+.fill{height:100%;border-radius:999px;transition:width .5s}
+.fill.hunger{background:var(--stat-hunger)} .fill.happy{background:var(--stat-happy)}
+.fill.energy{background:var(--stat-energy)} .fill.clean{background:var(--stat-clean)}
+
+.actions{flex:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem}
+.act{
+  height:3.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  border:1.5px solid var(--line);border-radius:.875rem;background:var(--white);box-shadow:0 3px 8px var(--shadow);
+  transition:transform .12s;
+}
+.act:active:not(:disabled){transform:scale(.95)}
+.act .ico{font-size:1.5rem;line-height:1}
+.act .lbl{font-size:.875rem;font-weight:700;line-height:1.1;white-space:nowrap}
+.act:disabled{background:var(--dis-bg);border-color:var(--dis-line);color:var(--dis-ink);box-shadow:none}
+.act:disabled .ico{opacity:.55}
+
+.foot{flex:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem}
+.fbtn{
+  height:max(2.75rem,40px);display:flex;align-items:center;justify-content:center;gap:.375rem;white-space:nowrap;
+  border:1px solid var(--line);border-radius:.875rem;background:var(--white);box-shadow:0 2px 6px var(--shadow);
+  font-size:.9375rem;font-weight:700;transition:transform .12s;
+}
+.fbtn:active{transform:scale(.95)}
+.fbtn.save{background:linear-gradient(135deg,var(--ok-a),var(--ok-b));border-color:var(--white);color:var(--white)}
+
+/* ===== น้องเกอ (วาดด้วย CSS) ===== */
+.ge{
+  position:relative;flex:none;width:var(--pet-size);height:var(--pet-size);border-radius:50%;overflow:hidden;
+  background:var(--skin);border:3px solid var(--white);box-shadow:0 6px 12px var(--shadow);
+}
+.ge i{position:absolute;display:block}
+.ge .hair-top{top:0;left:0;width:100%;height:42%;background:var(--hair);border-radius:999px 999px 0 0;z-index:10}
+.ge .bang{top:32%;width:28%;height:14%;background:var(--hair);border-radius:999px;z-index:20}
+.ge .bang-l{left:8%;transform:rotate(-12deg)}
+.ge .bang-r{right:8%;transform:rotate(12deg)}
+.ge .fringe{top:18%;left:50%;transform:translateX(-50%);width:68%;height:32%;background:var(--hair);border-radius:0 0 35% 35%/0 0 76% 76%;z-index:10}
+.ge .skin-low{top:38%;left:0;width:100%;height:62%;background:var(--skin);z-index:0}
+.ge .eye{top:48%;width:14%;height:14%;background:var(--eye);border-radius:50%;z-index:30}
+.ge .eye-l{left:22%} .ge .eye-r{right:22%}
+.ge .glint{top:18%;left:20%;width:40%;height:40%;background:var(--white);border-radius:50%}
+.ge .lid{display:none;top:54%;width:16%;height:3%;min-height:2px;background:var(--mouth-line);border-radius:999px;z-index:30}
+.ge .lid-l{left:20%;transform:rotate(-8deg)} .ge .lid-r{right:20%;transform:rotate(8deg)}
+.ge .blush{top:62%;width:18%;height:10%;background:var(--blush);opacity:.7;border-radius:50%;z-index:20}
+.ge .blush-l{left:14%} .ge .blush-r{right:14%}
+.ge .m{display:none;left:50%;top:70%;transform:translateX(-50%);z-index:30}
+.ge .m-happy{width:22%;height:13%;background:var(--mouth);border:1px solid var(--mouth-line);border-radius:0 0 999px 999px;overflow:hidden}
+.ge .tooth{left:30%;top:0;width:40%;height:35%;background:var(--white);opacity:.75;border-radius:0 0 999px 999px}
+.ge .m-sad{width:18%;height:9%;border-top:2px solid var(--mouth-line);border-radius:999px 999px 0 0}
+.ge .m-sick{width:13%;height:13%;border:2px solid var(--mouth-line);border-radius:50%}
+.ge .dot{left:33%;top:33%;width:34%;height:34%;background:var(--mouth-line);border-radius:50%}
+.ge .bow{top:12%;right:18%;width:20%;height:12%;background:var(--bow);border:1px solid var(--white);border-radius:999px;transform:rotate(15deg);z-index:30}
+.ge[data-mood=sleep] .eye{display:none}
+.ge[data-mood=sleep] .lid{display:block}
+.ge[data-mood=happy] .m-happy,.ge[data-mood=sleep] .m-happy{display:block}
+.ge[data-mood=sad] .m-sad{display:block}
+.ge[data-mood=sick] .m-sick{display:block}
+
+/* ===== ป๊อปอัป ===== */
+.toast{
+  position:absolute;z-index:70;left:50%;bottom:4.5rem;transform:translateX(-50%);max-width:92%;
+  padding:.5rem 1.125rem;border-radius:999px;background:var(--ink);color:var(--white);
+  font-size:.9375rem;font-weight:700;text-align:center;box-shadow:0 6px 18px var(--shadow);
+}
+.overlay{
+  position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:1rem;
+  background:var(--scrim);
+}
+.modal{
+  width:100%;max-width:21rem;max-height:100%;overflow:auto;display:flex;flex-direction:column;gap:.75rem;
+  padding:1rem;background:var(--white);border:3px solid var(--line);border-radius:1.375rem;box-shadow:0 12px 30px var(--shadow);
+}
+.modal.warn{border-color:var(--bad-line)}
+.m-title{font-size:1.1875rem;font-weight:700;text-align:center;line-height:1.25;text-wrap:balance}
+.m-sub{font-size:.9375rem;font-weight:600;text-align:center;color:var(--ink-soft);text-wrap:balance}
+.m-note{font-size:.8125rem;font-weight:600;text-align:center;color:var(--ink-mute)}
+.m-big{font-size:2rem;text-align:center;line-height:1}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.btn{
+  min-height:max(2.75rem,40px);padding:.25rem .5rem;border:1px solid var(--line);border-radius:.875rem;background:var(--white);
+  font-size:.9375rem;font-weight:700;line-height:1.15;white-space:nowrap;
+}
+.btn:active{transform:scale(.96)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));border-color:var(--white);color:var(--white)}
+.btn.danger{background:var(--bad);border-color:var(--bad);color:var(--white)}
+.m-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.m-head .m-title{text-align:left;white-space:nowrap}
+.m-coins{display:flex;justify-content:center}
+.close{flex:none;width:max(2.5rem,40px);height:max(2.5rem,40px);border-radius:50%;border:1px solid var(--line);background:var(--white);font-size:1.0625rem}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.item{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;padding:.625rem;text-align:left;
+  border:1px solid var(--line);border-radius:.875rem;background:linear-gradient(135deg,var(--white),var(--bg-a));
+}
+.item:active{transform:scale(.96)}
+.item .nm{font-size:1rem;font-weight:700;line-height:1.2;white-space:nowrap}
+.item .ds,.item .pr{white-space:nowrap}
+.item .ds{font-size:.875rem;font-weight:600;color:var(--accent)}
+.item .pr{margin-top:.15rem;padding:.1rem .6rem;border-radius:999px;background:var(--coin-bg);border:1px solid var(--coin-line);color:var(--coin-ink);font-size:.875rem;font-weight:700}
+.game-box{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;padding:.75rem;
+  border:1px solid var(--line);border-radius:1rem;background:linear-gradient(135deg,var(--bg-a),var(--bg-c));
+}
+.game-count{font-size:1.0625rem;font-weight:700}
+.game-bar{width:80%;height:.75rem;border-radius:999px;background:var(--white);overflow:hidden;border:1px solid var(--line)}
+.game-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .1s}
+.tap{
+  width:6rem;height:6rem;border-radius:50%;font-size:2.5rem;line-height:1;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));border:3px solid var(--white);box-shadow:0 6px 16px var(--shadow);
+}
+.tap:active{transform:scale(.9)}
+
+/* ===== แนวนอน: สัตว์เลี้ยงซ้าย ปุ่มขวา ===== */
+@media (orientation:landscape) and (max-height:520px){
+  .app{max-width:900px}
+  #playScreen:not([hidden]){
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+    grid-template-rows:auto minmax(0,1fr) auto auto;gap:.5rem .75rem;
+  }
+  .bubble{grid-column:1;grid-row:1}
+  .stage-wrap{grid-column:1;grid-row:2 / span 3}
+  .stats{grid-column:2;grid-row:1 / span 2;align-self:start}
+  .actions{grid-column:2;grid-row:3}
+  .foot{grid-column:2;grid-row:4}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(4.5rem,7.5rem))}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .pet-box.bob,.sleepov .zzz{animation:none}
+  .fill,.game-fill,.card,.act,.fbtn{transition:none}
+}
+</style>
+</head>
+<body>
+<noscript>ต้องเปิด JavaScript เพื่อเล่นเกมนี้ 🐣</noscript>
+<div class="app" id="app">
+
+  <header class="top">
+    <div class="brand">
+      <b>🐣 ทามาก็อต</b>
+      <small id="subLine">🐾 เลือกเพื่อนใหม่ก่อนนะ</small>
+    </div>
+    <div class="chips">
+      <span class="chip coin" id="coinChip" hidden>🪙 <b id="coins">0</b></span>
+    </div>
+  </header>
+
+  <!-- หน้าเลือกเพื่อน -->
+  <main class="screen" id="pickScreen">
+    <div class="pick-head">🧸 เลือกเพื่อนใหม่ 🧸 <span class="count" id="pickCount">🐾</span></div>
+    <div class="grid" id="pickGrid"></div>
+    <div class="tip"><span>💡 เลี้ยงดีได้ 🪙 เยอะ</span><span>⚡ นอนช่วยฟื้นพลัง</span></div>
+  </main>
+
+  <!-- หน้าเลี้ยง -->
+  <main class="screen" id="playScreen" hidden>
+    <div class="bubble" aria-live="polite"><span class="txt" id="bubbleTxt"></span></div>
+
+    <div class="stage-wrap">
+      <div class="stage">
+        <div class="pet-box" id="petBox" role="img"></div>
+        <div class="tag" id="petTag"></div>
+        <div class="badge poop" id="poop" role="img" aria-label="มีอึ รอเก็บ" hidden>💩</div>
+        <div class="badge sick" id="sickBadge" role="img" aria-label="ป่วย" hidden>🤒</div>
+        <div class="sleepov" id="sleepOv" hidden>
+          <span class="big">😴</span>
+          <span class="pill">💤 กำลังนอน...</span>
+          <span class="zzz">💤</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+    <div class="actions" id="actions"></div>
+    <div class="foot">
+      <button type="button" class="fbtn save" data-act="save">💾 เซฟ</button>
+      <button type="button" class="fbtn" data-act="load">📂 โหลด</button>
+      <button type="button" class="fbtn" data-act="reset">🔄 เริ่มใหม่</button>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <!-- เจอเซฟเก่า -->
+  <div class="overlay" id="foundModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="foundTitle">
+      <div class="m-big">💾</div>
+      <div class="m-title" id="foundTitle">💾 เจอเซฟเก่า!</div>
+      <div class="m-sub txt" id="foundInfo"></div>
+      <div class="btn-row">
+        <button type="button" class="btn primary" data-act="found-load">📂 โหลดต่อเลย</button>
+        <button type="button" class="btn" data-act="found-skip" id="foundSkip">🆕 เริ่มใหม่</button>
+      </div>
+      <div class="m-note">🔒 เซฟอัตโนมัติทุก 5 วินาที</div>
+    </div>
+  </div>
+
+  <!-- ยืนยันเริ่มใหม่ -->
+  <div class="overlay" id="resetModal" hidden>
+    <div class="modal warn" role="alertdialog" aria-modal="true" aria-labelledby="resetTitle">
+      <div class="m-big">⚠️</div>
+      <div class="m-title" id="resetTitle"><span class="ph">แน่ใจนะว่าจะเริ่มใหม่?</span> <span class="ph">ข้อมูลจะหายหมดนะ 🥺</span></div>
+      <div class="btn-row">
+        <button type="button" class="btn" data-act="close-modal">💭 ยกเลิก</button>
+        <button type="button" class="btn danger" data-act="reset-confirm">🔄 ลบเลย</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ร้านค้า -->
+  <div class="overlay" id="shopModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
+      <div class="m-head">
+        <div class="m-title" id="shopTitle">🛍️ ร้านค้าเหมียว</div>
+        <button type="button" class="close" data-act="close-modal" aria-label="ปิด">✖️</button>
+      </div>
+      <div class="m-coins"><span class="chip coin">🪙 <b id="shopCoins">0</b> เหรียญ</span></div>
+      <div class="shop-grid" id="shopGrid"></div>
+      <div class="m-note">💡 เล่นเกม 🕹️ เพื่อหาเหรียญเพิ่ม!</div>
+    </div>
+  </div>
+
+  <!-- มินิเกม -->
+  <div class="overlay" id="gameModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="gameTitle">
+      <div class="m-head">
+        <div class="m-title" id="gameTitle">🕹️ เกมจิ้มรัว!</div>
+        <button type="button" class="close" data-act="close-modal" aria-label="ปิด">✖️</button>
+      </div>
+      <div class="game-box">
+        <div class="game-count txt" id="gameCount"></div>
+        <div class="game-bar"><div class="game-fill" id="gameFill"></div></div>
+        <button type="button" class="tap" data-act="tap" aria-label="แตะรัวๆ">🎀</button>
+        <div class="m-note">👆 แตะรัวๆ เพื่อรับ 🪙</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+'use strict';
+
+/* ===== LOGIC:START ===== (กติกาเกมล้วน ไม่แตะ DOM — ทดสอบแยกได้) */
+const SAVE_KEY = 'tamagotchi_ge_final_v5';
+
+const CHARACTERS = [
+  { id: 'cat',    emoji: '🐱', name: 'แมวส้ม',   sub: 'ขี้อ้อน' },
+  { id: 'shiba',  emoji: '🐶', name: 'ชิบะ',     sub: 'ซนๆ' },
+  { id: 'bunny',  emoji: '🐰', name: 'ต่ายน้อย', sub: 'นุ่มนิ่ม' },
+  { id: 'panda',  emoji: '🐼', name: 'แพนด้า',   sub: 'ง่วงนอน' },
+  { id: 'ham',    emoji: '🐹', name: 'แฮมจิ๋ว',  sub: 'แก้มป่อง' },
+  { id: 'fox',    emoji: '🦊', name: 'ฟ็อกซี่',  sub: 'ฉลาด' },
+  { id: 'frog',   emoji: '🐸', name: 'กบเขียว',  sub: 'ดีดๆ' },
+  { id: 'octo',   emoji: '🐙', name: 'หมึกม่วง', sub: 'มุ้งมิ้ง' },
+  { id: 'uni',    emoji: '🦄', name: 'ยูนิ',     sub: 'สายรุ้ง' },
+  { id: 'dragon', emoji: '🐲', name: 'มังกร',    sub: 'พ่นไฟ' },
+  { id: 'ge',     emoji: '👧', name: 'น้องเกอ',  sub: 'น่ารัก', custom: true, isNew: true }
+];
+const CHAR_BY_ID = Object.assign(Object.create(null), Object.fromEntries(CHARACTERS.map((c) => [c.id, c])));
+
+/* อัตราต่อวินาที (เวลาจริง) */
+const RATE = Object.freeze({
+  hungerAwake: 0.25, hungerSleep: 0.15,
+  happyAwake: 0.18, happySleep: 0.05, happySick: 0.12,
+  energyAwake: 0.12, energySleep: 0.55,
+  clean: 0.10, cleanPoop: 0.30,
+  age: 0.001,
+  poopChance: 0.006,   /* โอกาสเกิดต่อวินาที */
+  sickAfter: 5         /* วินาทีที่หิวสุด/สกปรกสุดก่อนป่วย */
+});
+/* ตอนปิดแอป/สลับแท็บนานๆ: ลดช้าลง 10 เท่า, สูงสุด 30 นาที, ไม่ต่ำกว่า 20% */
+const OFFLINE = Object.freeze({ minGap: 5, maxSeconds: 1800, factor: 0.1, floor: 20 });
+const LIMIT = Object.freeze({ full: 95, coinsMax: 9999, playMinEnergy: 10, wakeMinEnergy: 8 });
+const COST = Object.freeze({ feed: 3, medicine: 10 });
+const LOW = Object.freeze({ hunger: 20, happy: 20, energy: 15, clean: 25 });
+
+const SHOP = [
+  { id: 'meal',   emoji: '🍙', name: 'ข้าวกล่อง',  price: 15, desc: '+25 อิ่ม',   stat: 'hunger', amount: 25, ok: '🍙 ซื้อข้าวแล้ว!' },
+  { id: 'toy',    emoji: '🧸', name: 'ตุ๊กตา',     price: 20, desc: '+20 สุข',    stat: 'happy',  amount: 20, ok: '🧸 มีความสุข!' },
+  { id: 'charge', emoji: '🔋', name: 'ชาร์จพลัง',  price: 18, desc: '+30 พลัง',   stat: 'energy', amount: 30, ok: '🔋 ชาร์จแล้ว!' },
+  { id: 'soap',   emoji: '🫧', name: 'สบู่หอม',    price: 12, desc: '+35 สะอาด',  stat: 'clean',  amount: 35, ok: '🫧 หอมฟุ้ง!' }
+];
+
+const CHEER = [
+  '💖 วันนี้สดใสจัง!', '✨ รักเจ้าของที่สุด!', '🎀 อยู่กับเค้าตลอดไปนะ', '🌸 อากาศดีจังเลย!',
+  '🍓 อยากกินขนม!', '😊 มีความสุขมากๆ', '🎮 เล่นเกมกันเถอะ!'
+];
+
+const clamp = (v, min = 0, max = 100) => (Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : min);
+const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
+
+function newState(charId) {
+  return {
+    charId, hunger: 82, happy: 86, energy: 78, clean: 84, age: 0, coins: 120,
+    hasPoop: false, isSick: false, isSleeping: false, dirtyTime: 0, starveTime: 0
+  };
+}
+
+/* อ่านเซฟ: รับข้อมูลดิบ คืนสถานะที่ปลอดภัย (หรือ null ถ้าใช้ไม่ได้) */
+function sanitize(raw) {
+  if (!raw || typeof raw !== 'object' || !CHAR_BY_ID[raw.charId]) return null;
+  const num = (v, d, min, max) => (isNum(v) ? clamp(v, min, max) : d);
+  return {
+    charId: raw.charId,
+    hunger: num(raw.hunger, 80, 0, 100), happy: num(raw.happy, 80, 0, 100),
+    energy: num(raw.energy, 80, 0, 100), clean: num(raw.clean, 80, 0, 100),
+    age: num(raw.age, 0, 0, 1e6), coins: Math.floor(num(raw.coins, 100, 0, LIMIT.coinsMax)),
+    hasPoop: raw.hasPoop === true, isSick: raw.isSick === true, isSleeping: raw.isSleeping === true,
+    dirtyTime: 0, starveTime: 0,
+    ts: isNum(raw.ts) && raw.ts > 0 ? raw.ts : 0
+  };
+}
+
+function moodOf(s) {
+  if (s.isSleeping) return 'sleep';
+  if (s.isSick) return 'sick';
+  if (s.happy < LOW.happy || s.hunger < 15) return 'sad';
+  return 'happy';
+}
+
+/* กฎที่ใช้ร่วมกันทั้ง tick และ catchUp: ป่วย / หลับ / ตื่นเอง */
+function settle(s, events) {
+  if (!s.isSick && (s.dirtyTime >= RATE.sickAfter || s.starveTime >= RATE.sickAfter)) {
+    s.isSick = true;
+    events.push('🤒 ไม่สบายเลย ฮือ...');
+  }
+  if (s.isSleeping && s.energy >= 100) {
+    s.isSleeping = false;
+    events.push('☀️ ตื่นแล้ว! พลังเต็มร้อย!');
+  } else if (!s.isSleeping && s.energy <= 0) {
+    s.isSleeping = true;
+    events.push('😴 หมดแรง... ขอนอนก่อนน้า');
+  }
+}
+
+/* เดินเวลาปกติ dt วินาที (ปรับตามเวลาจริง ไม่เพี้ยนเมื่อแท็บถูกหน่วง) */
+function tick(s, dt, rng = Math.random) {
+  const events = [];
+  if (!(dt > 0)) return events;
+  const sl = s.isSleeping;
+  s.hunger = clamp(s.hunger - (sl ? RATE.hungerSleep : RATE.hungerAwake) * dt);
+  s.happy = clamp(s.happy - ((sl ? RATE.happySleep : RATE.happyAwake) + (s.isSick ? RATE.happySick : 0)) * dt);
+  s.energy = clamp(s.energy + (sl ? RATE.energySleep : -RATE.energyAwake) * dt);
+  s.clean = clamp(s.clean - (RATE.clean + (s.hasPoop ? RATE.cleanPoop : 0)) * dt);
+  s.age += RATE.age * dt;
+
+  if (!sl && !s.hasPoop && s.hunger > 20 && rng() < 1 - Math.exp(-RATE.poopChance * dt)) {
+    s.hasPoop = true;
+    events.push('💩 อุ๊ย! เก็บให้หน่อยน้า');
+  }
+  s.dirtyTime = s.clean < 20 ? s.dirtyTime + dt : 0;
+  s.starveTime = s.hunger <= 0 ? s.starveTime + dt : 0;
+  settle(s, events);
+  return events;
+}
+
+/* ย้อนเวลาตอนกลับมาเล่น: นุ่มนวล ไม่ทำให้สัตว์เลี้ยงป่วยทันที */
+function catchUp(s, seconds) {
+  const sec = Math.min(Math.max(isNum(seconds) ? seconds : 0, 0), OFFLINE.maxSeconds);
+  const events = [];
+  if (sec <= 0) return events;
+  const k = OFFLINE.factor;
+  const sl = s.isSleeping;
+  const drop = (v, rate) => Math.max(v - rate * k * sec, Math.min(v, OFFLINE.floor));
+  s.hunger = clamp(drop(s.hunger, sl ? RATE.hungerSleep : RATE.hungerAwake));
+  s.happy = clamp(drop(s.happy, (sl ? RATE.happySleep : RATE.happyAwake) + (s.isSick ? RATE.happySick : 0)));
+  s.clean = clamp(drop(s.clean, RATE.clean + (s.hasPoop ? RATE.cleanPoop : 0)));
+  s.energy = clamp(sl ? s.energy + RATE.energySleep * k * sec : drop(s.energy, RATE.energyAwake));
+  s.age += RATE.age * k * sec;
+  s.dirtyTime = 0;
+  s.starveTime = 0;
+  settle(s, events);
+  return events;
+}
+
+/* ข้อความโต้ตอบประจำ (ทุก ~3.8 วิ) */
+function ambient(s, rng = Math.random) {
+  if (s.isSleeping) return '💤 Zzz... ฝันดีน้า';
+  if (s.isSick) return '🤒 ปวดหัวจังเลย';
+  if (s.hasPoop) return '💩 เหม็นจัง เก็บหน่อย!';
+  if (s.hunger < LOW.hunger) return '🍙 หิวมากเลย ข้าวหน่อย!';
+  if (s.happy < LOW.happy) return '😢 เหงาจัง เล่นด้วยหน่อย';
+  if (s.energy < LOW.energy) return '🥱 ง่วงแล้ว นอนได้ไหม';
+  if (s.clean < LOW.clean) return '🛁 ตัวเหม็นแล้ว อาบน้ำที';
+  if (s.happy < 95 && rng() < 0.3) s.happy = clamp(s.happy + 5);
+  return CHEER[Math.floor(rng() * CHEER.length) % CHEER.length];
+}
+
+/* ===== การกระทำ: คืน {ok, toast, say} ===== */
+const fail = (toast) => ({ ok: false, toast });
+const done = (toast, say) => ({ ok: true, toast, say });
+const addCoins = (s, n) => { s.coins = Math.min(LIMIT.coinsMax, Math.max(0, s.coins + n)); };
+
+function doFeed(s) {
+  if (s.isSleeping) return fail('😴 กำลังนอนอยู่ ปลุกก่อนน้า');
+  if (s.hunger >= LIMIT.full) return fail('🍙 อิ่มแล้ว ไม่หิวเลย!');
+  if (s.coins < COST.feed) return fail('🪙 เหรียญไม่พอ! ไปเล่นเกมก่อนนะ');
+  s.hunger = clamp(s.hunger + 18);
+  s.happy = clamp(s.happy + 3);
+  s.clean = clamp(s.clean - 3);
+  addCoins(s, -COST.feed);
+  return done('🍙 ให้อาหารแล้ว!', '🍙 อร่อยมาก! ขอบคุณนะ 💖');
+}
+function doPlay(s) {
+  if (s.isSleeping) return fail('😴 กำลังนอนอยู่ ปลุกก่อนน้า');
+  if (s.energy < LIMIT.playMinEnergy) return fail('🥱 เหนื่อยเกินไป ให้นอนก่อนนะ');
+  s.happy = clamp(s.happy + 15);
+  s.energy = clamp(s.energy - 8);
+  s.hunger = clamp(s.hunger - 5);
+  return done('🎮 เล่นแล้ว! สุข +15', '🎮 สนุกจัง! เล่นอีกนะ ✨');
+}
+function doBath(s) {
+  if (s.isSleeping) return fail('😴 กำลังนอนอยู่ ปลุกก่อนน้า');
+  if (s.clean >= LIMIT.full && !s.hasPoop) return fail('✨ สะอาดอยู่แล้ว ไม่ต้องอาบ');
+  if (s.clean < 20) s.isSick = false;
+  s.clean = 100;
+  s.hasPoop = false;
+  s.dirtyTime = 0;
+  s.happy = clamp(s.happy + 5);
+  return done('🛁 อาบน้ำแล้ว ✨', '🛁 สดชื่นสุดๆ หอมแล้ว!');
+}
+function doSleepToggle(s) {
+  if (s.isSleeping) {
+    if (s.energy < LIMIT.wakeMinEnergy) return fail('😴 ยังง่วงอยู่ นอนต่อนะ');
+    s.isSleeping = false;
+    return done('☀️ ตื่นแล้ว!', '☀️ ตื่นแล้ว! พร้อมลุย!');
+  }
+  if (s.energy >= LIMIT.full) return fail('😊 ยังไม่ง่วงเลย!');
+  s.isSleeping = true;
+  return done('😴 ฝันดีนะ', '😴 ฝันดีนะ เจอกันตอนตื่น');
+}
+function doMedicine(s) {
+  if (!s.isSick) return fail('💊 ยังไม่ป่วยน้า แข็งแรงดี!');
+  if (s.coins < COST.medicine) return fail('🪙 เหรียญไม่พอซื้อยา');
+  s.isSick = false;
+  s.dirtyTime = 0;
+  s.starveTime = 0;
+  s.happy = clamp(s.happy + 8);
+  addCoins(s, -COST.medicine);
+  return done('💊 รักษาแล้ว!', '💊 หายแล้ว! ขอบคุณนะ 💖');
+}
+function doPoop(s) {
+  if (!s.hasPoop) return fail('✨ สะอาดอยู่แล้ว ไม่มี 💩');
+  s.hasPoop = false;
+  s.clean = clamp(s.clean + 10);
+  s.happy = clamp(s.happy + 3);
+  addCoins(s, 2);
+  return done('💩 เก็บแล้ว +2 🪙', '✨ ขอบคุณที่เก็บให้นะ!');
+}
+function doBuy(s, itemId) {
+  const it = SHOP.find((x) => x.id === itemId);
+  if (!it) return fail('🛍️ ไม่พบสินค้า');
+  if (s[it.stat] >= LIMIT.full) return fail(it.emoji + ' เต็มแล้ว ยังไม่ต้องใช้!');
+  if (s.coins < it.price) return fail('🪙 เหรียญไม่พอ!');
+  s[it.stat] = clamp(s[it.stat] + it.amount);
+  addCoins(s, -it.price);
+  return done(it.ok);
+}
+function doGameWin(s) {
+  addCoins(s, 12);
+  s.happy = clamp(s.happy + 12);
+  return done('🎉 เก่งมาก! +12 🪙');
+}
+/* ===== LOGIC:END ===== */
+
+
+/* ===== UI ===== */
+const $ = (id) => document.getElementById(id);
+const h = (tag, cls, text) => {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+};
+
+/* ใส่ข้อความโดยตัดบรรทัดได้เฉพาะตรงที่เว้นวรรค (ไม่หั่นกลางคำไทย) */
+function setPhrases(el, text) {
+  const t = String(text);
+  if (el.dataset.t === t) return;
+  el.dataset.t = t;
+  const frag = document.createDocumentFragment();
+  t.split(' ').forEach((part, i) => {
+    if (i) frag.appendChild(document.createTextNode(' '));
+    frag.appendChild(h('span', 'ph', part));
+  });
+  el.replaceChildren(frag);
+}
+
+const GAME_TARGET = 10;
+const AUTOSAVE_MS = 5000;
+const AMBIENT_MS = 3800;
+const TOAST_MS = 1800;
+
+const STATS = [
+  { key: 'hunger', emoji: '🍙', label: 'อิ่ม' },
+  { key: 'happy',  emoji: '💖', label: 'สุข' },
+  { key: 'energy', emoji: '⚡', label: 'พลัง' },
+  { key: 'clean',  emoji: '✨', label: 'สะอาด' }
+];
+const ACTIONS = [
+  { id: 'feed',     emoji: '🍙', label: 'อาหาร',  needAwake: true },
+  { id: 'play',     emoji: '🎮', label: 'เล่น',   needAwake: true },
+  { id: 'bath',     emoji: '🛁', label: 'อาบน้ำ', needAwake: true },
+  { id: 'sleep',    emoji: '😴', label: 'นอน',    needAwake: false },
+  { id: 'medicine', emoji: '💊', label: 'ยา',     needAwake: false },
+  { id: 'poop',     emoji: '💩', label: 'เก็บ',   needAwake: false },
+  { id: 'game',     emoji: '🕹️', label: 'เกม',    needAwake: true },
+  { id: 'shop',     emoji: '🛍️', label: 'ช็อป',   needAwake: false }
+];
+const MOOD_FACE = { happy: '😊', sad: '😢', sick: '😣', sleep: '😴' };
+
+const app = { s: null, say: '', savedAt: 0, last: Date.now(), pending: null, builtChar: null, game: 0, toastTimer: 0 };
+const els = {};
+const statEls = {};
+const actEls = {};
+
+function fmtTime(ts) {
+  const d = new Date(ts);
+  return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+}
+
+/* ----- น้องเกอ ----- */
+function makeGe() {
+  const ge = h('div', 'ge');
+  ge.dataset.mood = 'happy';
+  ['hair-top', 'bang bang-l', 'bang bang-r', 'fringe', 'skin-low'].forEach((c) => ge.appendChild(h('i', c)));
+  ['l', 'r'].forEach((side) => {
+    const eye = h('i', 'eye eye-' + side);
+    eye.appendChild(h('i', 'glint'));
+    ge.appendChild(eye);
+    ge.appendChild(h('i', 'lid lid-' + side));
+    ge.appendChild(h('i', 'blush blush-' + side));
+  });
+  const happy = h('i', 'm m-happy');
+  happy.appendChild(h('i', 'tooth'));
+  const sick = h('i', 'm m-sick');
+  sick.appendChild(h('i', 'dot'));
+  ge.append(happy, h('i', 'm m-sad'), sick, h('i', 'bow'));
+  return ge;
+}
+
+function petFace(c) {
+  if (c.custom) return makeGe();
+  return h('div', 'pet-emoji', c.emoji);
+}
+
+/* ----- สร้างหน้าจอ ----- */
+function buildPick() {
+  const grid = els.pickGrid;
+  CHARACTERS.forEach((c) => {
+    const b = h('button', 'card' + (c.isNew ? ' wide' : ''));
+    b.type = 'button';
+    b.dataset.char = c.id;
+    b.style.backgroundImage = 'linear-gradient(135deg,var(--' + c.id + '-a),var(--' + c.id + '-b))';
+    b.setAttribute('aria-label', 'เลือก ' + c.name);
+    const em = h('div', 'em');
+    em.appendChild(c.custom ? makeGe() : document.createTextNode(c.emoji));
+    b.append(em, h('span', 'nm', c.name), h('span', 'sb', c.sub));
+    if (c.isNew) b.appendChild(h('span', 'new', 'NEW!'));
+    grid.appendChild(b);
+  });
+  els.pickCount.textContent = '🐾 ' + CHARACTERS.length + ' ตัว';
+}
+
+function buildPlay() {
+  STATS.forEach((st) => {
+    const box = h('div', 'stat');
+    const head = h('div', 'stat-head');
+    const pct = h('span', 'pct', '0%');
+    head.append(h('span', 'nm', st.emoji + ' ' + st.label), pct);
+    const fill = h('div', 'fill ' + st.key);
+    const bar = h('div', 'bar');
+    bar.appendChild(fill);
+    box.append(head, bar);
+    els.stats.appendChild(box);
+    statEls[st.key] = { box, pct, fill };
+  });
+  ACTIONS.forEach((a) => {
+    const b = h('button', 'act');
+    b.type = 'button';
+    b.dataset.do = a.id;
+    const ico = h('span', 'ico', a.emoji);
+    const lbl = h('span', 'lbl', a.label);
+    b.append(ico, lbl);
+    els.actions.appendChild(b);
+    actEls[a.id] = { b, ico, lbl };
+  });
+  SHOP.forEach((it) => {
+    const b = h('button', 'item');
+    b.type = 'button';
+    b.dataset.buy = it.id;
+    b.append(h('div', 'nm', it.emoji + ' ' + it.name), h('div', 'ds', it.desc), h('div', 'pr', '🪙 ' + it.price));
+    els.shopGrid.appendChild(b);
+  });
+}
+
+/* ----- วาดหน้าจอ ----- */
+function render() {
+  const s = app.s;
+  const playing = !!s;
+  els.pickScreen.hidden = playing;
+  els.playScreen.hidden = !playing;
+  els.coinChip.hidden = !playing;
+  if (!playing) {
+    els.subLine.textContent = '🐾 เลือกเพื่อนใหม่ก่อนนะ';
+    return;
+  }
+  const c = CHAR_BY_ID[s.charId];
+  const mood = moodOf(s);
+
+  els.subLine.textContent = '💾 ' + (app.savedAt ? fmtTime(app.savedAt) : '—') + ' • 🎂 ' + Math.floor(s.age) + ' วัน';
+  els.coins.textContent = s.coins;
+  els.shopCoins.textContent = s.coins;
+  setPhrases(els.bubbleTxt, app.say);
+
+  if (app.builtChar !== s.charId) {
+    els.petBox.replaceChildren(petFace(c));
+    els.petBox.setAttribute('aria-label', c.name);
+    app.builtChar = s.charId;
+  }
+  const face = els.petBox.firstChild;
+  if (c.custom) face.dataset.mood = mood;
+  els.petBox.classList.toggle('bob', !s.isSleeping);
+  els.petTag.textContent = MOOD_FACE[mood] + ' ' + c.name + ' Lv.' + (Math.floor(s.age) + 1);
+  els.poop.hidden = !s.hasPoop;
+  els.sickBadge.hidden = !s.isSick;
+  els.sleepOv.hidden = !s.isSleeping;
+
+  STATS.forEach((st) => {
+    const v = s[st.key];
+    statEls[st.key].pct.textContent = Math.round(v) + '%';
+    statEls[st.key].fill.style.width = clamp(v) + '%';
+    statEls[st.key].box.classList.toggle('low', v < LOW[st.key]);
+  });
+  ACTIONS.forEach((a) => {
+    actEls[a.id].b.disabled = a.needAwake && s.isSleeping;
+  });
+  actEls.sleep.ico.textContent = s.isSleeping ? '☀️' : '😴';
+  actEls.sleep.lbl.textContent = s.isSleeping ? 'ตื่น' : 'นอน';
+}
+
+function toast(msg) {
+  if (!msg) return;
+  els.toast.dataset.t = '';
+  setPhrases(els.toast, msg);
+  els.toast.hidden = false;
+  clearTimeout(app.toastTimer);
+  app.toastTimer = setTimeout(() => { els.toast.hidden = true; }, TOAST_MS);
+}
+
+/* ----- เซฟ / โหลด ----- */
+function save() {
+  if (!app.s) return false;
+  try {
+    const ts = Date.now();
+    localStorage.setItem(SAVE_KEY, JSON.stringify(Object.assign({}, app.s, { ts })));
+    app.savedAt = ts;
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+function readSave() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    return raw ? sanitize(JSON.parse(raw)) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+/* ----- ป๊อปอัป ----- */
+const MODALS = ['foundModal', 'resetModal', 'shopModal', 'gameModal'];
+function openModal(id) { els[id].hidden = false; render(); }
+function closeModals() { MODALS.forEach((id) => { els[id].hidden = true; }); }
+
+function openFound(data, fromStart) {
+  app.pending = data;
+  const c = CHAR_BY_ID[data.charId];
+  setPhrases(els.foundInfo, '🐣 ' + c.name + (data.ts ? ' 🕒 ' + fmtTime(data.ts) : ''));
+  els.foundSkip.textContent = fromStart ? '🆕 เริ่มใหม่' : '↩️ ยกเลิก';
+  openModal('foundModal');
+}
+
+/* ----- เริ่ม / โหลด / รีเซ็ต ----- */
+function startGame(id) {
+  if (!CHAR_BY_ID[id]) return;
+  app.s = newState(id);
+  app.say = '🎉 เย้! ได้เพื่อนใหม่แล้ว!';
+  app.last = Date.now();
+  app.builtChar = null;
+  save();
+  render();
+}
+function loadPending() {
+  const data = app.pending;
+  if (!data) return;
+  const s = sanitize(data);
+  if (!s) return;
+  const away = s.ts ? (Date.now() - s.ts) / 1000 : 0;
+  if (away > OFFLINE.minGap) catchUp(s, away);
+  app.s = s;
+  app.savedAt = data.ts || 0;
+  app.say = away > 60 ? '🌙 ไปนานจัง คิดถึงนะ! 💖' : '📂 โหลดแล้ว! เย้!';
+  app.last = Date.now();
+  app.builtChar = null;
+  app.pending = null;
+  closeModals();
+  toast('📂 โหลดแล้ว! เย้!');
+  render();
+}
+function resetAll() {
+  try { localStorage.removeItem(SAVE_KEY); } catch (e) { /* ไม่มีที่เก็บก็ข้าม */ }
+  app.s = null;
+  app.savedAt = 0;
+  app.builtChar = null;
+  closeModals();
+  toast('🔄 เริ่มใหม่แล้ว!');
+  render();
+}
+
+/* ----- การกระทำ ----- */
+function applyResult(r) {
+  if (!r) return;
+  if (r.say) app.say = r.say;
+  if (r.toast) toast(r.toast);
+  if (r.ok) save();
+  render();
+}
+function runAction(id) {
+  const s = app.s;
+  if (!s) return;
+  switch (id) {
+    case 'feed': applyResult(doFeed(s)); break;
+    case 'play': applyResult(doPlay(s)); break;
+    case 'bath': applyResult(doBath(s)); break;
+    case 'sleep': applyResult(doSleepToggle(s)); break;
+    case 'medicine': applyResult(doMedicine(s)); break;
+    case 'poop': applyResult(doPoop(s)); break;
+    case 'game': app.game = 0; updateGame(); openModal('gameModal'); break;
+    case 'shop': openModal('shopModal'); break;
+    default: break;
+  }
+}
+function updateGame() {
+  setPhrases(els.gameCount, '🎯 จิ้มให้ครบ ' + GAME_TARGET + ' ครั้ง! ' + app.game + '/' + GAME_TARGET);
+  els.gameFill.style.width = (app.game / GAME_TARGET) * 100 + '%';
+}
+function tapGame() {
+  const s = app.s;
+  if (!s) return;
+  app.game += 1;
+  updateGame();
+  if (app.game >= GAME_TARGET) {
+    app.game = 0;
+    closeModals();
+    applyResult(doGameWin(s));
+  }
+}
+
+/* ----- วงจรเวลา ----- */
+function loop() {
+  const now = Date.now();
+  const dt = Math.max(0, (now - app.last) / 1000);
+  app.last = now;
+  const s = app.s;
+  if (!s) return;
+  let events;
+  if (dt > OFFLINE.minGap) {
+    events = catchUp(s, dt);
+    if (dt > 60) events.push('🌙 ไปนานจัง คิดถึงนะ! 💖');
+  } else {
+    events = tick(s, dt);
+  }
+  if (events.length) app.say = events[events.length - 1];
+  render();
+}
+function ambientLoop() {
+  if (!app.s) return;
+  app.say = ambient(app.s);
+  render();
+}
+
+/* ----- เริ่มทำงาน ----- */
+function init() {
+  ['app', 'subLine', 'coinChip', 'coins', 'pickScreen', 'pickGrid', 'pickCount', 'playScreen',
+    'bubbleTxt', 'petBox', 'petTag', 'poop', 'sickBadge', 'sleepOv', 'stats', 'actions', 'toast', 'foundInfo',
+    'foundSkip', 'shopGrid', 'shopCoins', 'gameCount', 'gameFill'].concat(MODALS).forEach((id) => { els[id] = $(id); });
+  buildPick();
+  buildPlay();
+
+  els.app.addEventListener('click', (e) => {
+    const t = e.target.closest('button');
+    if (!t || !els.app.contains(t)) return;
+    if (t.dataset.char) { startGame(t.dataset.char); return; }
+    if (t.dataset.do) { runAction(t.dataset.do); return; }
+    if (t.dataset.buy) { applyResult(app.s && doBuy(app.s, t.dataset.buy)); return; }
+    switch (t.dataset.act) {
+      case 'save':
+        toast(save() ? '✅ เซฟแล้ว! 💾' : '⚠️ เซฟไม่ได้ ที่เก็บข้อมูลถูกปิด');
+        break;
+      case 'load': {
+        const data = readSave();
+        if (data) openFound(data, false); else toast('📂 ไม่มีเซฟน้า');
+        break;
+      }
+      case 'reset': openModal('resetModal'); break;
+      case 'reset-confirm': resetAll(); break;
+      case 'found-load': loadPending(); break;
+      case 'found-skip': app.pending = null; closeModals(); break;
+      case 'close-modal': closeModals(); break;
+      case 'tap': tapGame(); break;
+      default: break;
+    }
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModals(); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') save(); else loop();
+  });
+  window.addEventListener('pagehide', save);
+
+  setInterval(loop, 1000);
+  setInterval(ambientLoop, AMBIENT_MS);
+  setInterval(save, AUTOSAVE_MS);
+
+  const found = readSave();
+  render();
+  if (found) openFound(found, true);
+}
+init();
+</script>
+</body>
+</html>
